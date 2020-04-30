@@ -10,9 +10,9 @@ const writeFileAsync = util.promisify(fs.writeFile);
 class DbFunctions {
 	async readNotes() {
 		try {
-			console.log("hello?");
-			const data = await JSON.parse(readFileAsync("db/db.json", "utf8"));
-			return data;
+			const data = await readFileAsync("db/db.json", "utf8");
+			console.log("data", JSON.parse(data));
+			return JSON.parse(data);
 		} catch (err) {
 			throw err;
 		}

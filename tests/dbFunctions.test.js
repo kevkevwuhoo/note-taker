@@ -9,7 +9,7 @@ describe("DbFunctions", () => {
 			// Act
 			const data = dbFunctions.readNotes();
 			// Assert
-			expect(data).resolves.toEqual(output);
+			return expect(data).resolves.toEqual(output);
 		});
 	});
 });
