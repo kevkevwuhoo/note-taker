@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 8000;
 // data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
 // Routes
 
