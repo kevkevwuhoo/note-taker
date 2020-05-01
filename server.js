@@ -1,6 +1,5 @@
 // Dependencies
 const express = require("express");
-const fs = require("fs");
 const htmlRoutes = require("./routes/htmlRoutes");
 const apiRoutes = require("./routes/apiRoutes");
 
