@@ -1,6 +1,7 @@
 // DEPENDENCIES
 const util = require("util");
 const fs = require("fs");
+//TODO: UUID
 
 // make fs.readFile promise-based
 // make fs.appendFile promise-based
@@ -55,7 +56,6 @@ class DbFunctions {
 				throw new Error("Missing required fields!");
 			}
 			const newNote = { title, text, id: this.id };
-			this.id++;
 			notes.push(newNote);
 			this.writeNotes(notes);
 		} catch (err) {
@@ -64,10 +64,18 @@ class DbFunctions {
 	}
 
 	async deleteNote(id) {
+		console.log(id);
 		try {
 			const notes = await this.getNotes();
-			notes.filter((note) => note.id !== parseInt(id));
-			this.writeNotes(notes);
+			const newNotes = notes.filter((note, index) => {
+				console.log(id);
+				console.log(note.id !== parseInt(id));
+				return index !== parseInt(id);
+			});
+			console.log("delete", newNotes);
+			await this.writeNotes(newNotes);
+			const updatedNotes = await this.getNotes();
+			return JSON.parse(updatedNotes);
 		} catch (err) {
 			throw err;
 		}

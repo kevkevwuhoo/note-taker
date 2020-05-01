@@ -27,6 +27,8 @@ router.post("/notes", (req, res) => {
 
 // DELETE
 router.delete("/notes/:id", (req, res) => {
-	dbFunctions.deleteNote(req.params.id);
+	console.log("id", req.params.id);
+	res.json(dbFunctions.deleteNote(req.params.id));
 });
+
 module.exports = router;
