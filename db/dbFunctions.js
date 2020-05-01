@@ -10,10 +10,8 @@ const writeFileAsync = util.promisify(fs.writeFile);
 class DbFunctions {
 	async readNotes() {
 		try {
-			let data = await readFileAsync("db/db.json", "utf8");
-			data = JSON.parse(data);
-			console.log("data", data);
-			return data;
+			const data = await readFileAsync("db/db.json", "utf8");
+			return JSON.parse(data);
 		} catch (err) {
 			throw err;
 		}
@@ -27,15 +25,15 @@ class DbFunctions {
 		}
 	}
 
-	async getNotes() {
-		try {
-			const notes = await this.readNotes();
-			console.log("notes", notes);
-			return notes;
-		} catch (err) {
-			throw err;
-		}
-	}
+	// async getNotes() {
+	// 	try {
+	// 		const notes = await this.readNotes();
+	// 		console.log("notes", notes);
+	// 		return notes;
+	// 	} catch (err) {
+	// 		throw err;
+	// 	}
+	// }
 
 	async addNote(note) {
 		try {
