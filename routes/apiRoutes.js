@@ -7,7 +7,9 @@ const dbFunctions = new DbFunctions();
 const { readNotes, writeNotes, getNotes, addNote } = dbFunctions;
 
 // GET
-router.get("/notes", getNotes());
+router.get("/notes", (req, res) => {
+	getNotes();
+});
 
 // POST
 router.post("/notes", (req, res) => {
