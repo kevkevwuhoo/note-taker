@@ -50,9 +50,10 @@ class DbFunctions {
 			// add the note to the existing ones
 			notes.push(newNote);
 			// write it to db.json
-			this.writeNotes(notes);
+			await this.writeNotes(notes);
+			return note;
 		} catch (err) {
-			throw err;
+			return err;
 		}
 	}
 

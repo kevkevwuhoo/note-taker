@@ -18,12 +18,15 @@ router.get("/notes", async (req, res) => {
 
 // POST
 router.post("/notes", (req, res) => {
-	// get the body of the user post request
-	const newNote = req.body;
-	// add it to the notes in db.json
-	dbFunctions.addNote(newNote);
-	// return the new note that the user added
-	res.json(newNote);
+	try {
+		// get the body of the user post request
+		const newNote = req.body;
+		// add it to the notes in db.json
+		// return the new note that the user added
+		res.send(dbFunctions.addNote(newNote));
+	} catch (err) {
+		throw err;
+	}
 });
 
 // DELETE

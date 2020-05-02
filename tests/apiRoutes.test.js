@@ -46,4 +46,36 @@ describe("API Routes", () => {
 			}
 		});
 	});
+
+	describe("POST request on api routes", () => {
+		it("should return a status code of 200", async () => {
+			const response = await axios.post("/api/notes");
+			const { status } = response;
+			expect(status).toBe(200);
+		});
+		it("should have something in the request body", async () => {
+			const response = await axios.post("/api/notes", {
+				title: "Hello",
+				text: "World",
+			});
+			const { data } = response;
+			expect(data).toBeTruthy();
+		});
+		// it("should return a status code of 500 and an error if there are any missing fields in the note", async () => {
+		// 	const { data, status } = await axios.post("/api/notes", {
+		// 		title: "Hello",
+		// 	});
+		// 	const err = new Error("Missing required fields!");
+		// 	expect(status).toBe(500);
+		// 	expect(data).toEqual(err);
+		// });
+	});
+
+	describe("DELETE request on api routes", () => {
+		it("should return a status code of 200", async () => {
+			const response = await axios.post("/api/notes");
+			const { status } = response;
+			expect(status).toBe(200);
+		});
+	});
 });
