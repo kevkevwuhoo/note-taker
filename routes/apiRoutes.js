@@ -10,7 +10,6 @@ const dbFunctions = new DbFunctions();
 router.get("/notes", async (req, res) => {
 	try {
 		const notesJSON = await dbFunctions.getNotes();
-		console.log(notesJSON);
 		res.json(notesJSON);
 	} catch (err) {
 		throw err;
@@ -20,14 +19,12 @@ router.get("/notes", async (req, res) => {
 // POST
 router.post("/notes", (req, res) => {
 	const newNote = req.body;
-	console.log("reqbody", newNote);
 	dbFunctions.addNote(newNote);
 	res.json(newNote);
 });
 
 // DELETE
 router.delete("/notes/:id", (req, res) => {
-	console.log("id", req.params.id);
 	res.json(dbFunctions.deleteNote(req.params.id));
 });
 

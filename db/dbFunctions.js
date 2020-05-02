@@ -1,7 +1,7 @@
 // DEPENDENCIES
 const util = require("util");
 const fs = require("fs");
-//TODO: UUID
+const { v4: uuid4 } = require("uuid");
 
 // make fs.readFile promise-based
 // make fs.appendFile promise-based
@@ -12,23 +12,6 @@ class DbFunctions {
 	constructor() {
 		this.id = 0;
 	}
-
-	// async readNotes() {
-	// 	try {
-	// 		return await readFileAsync("db/db.json", "utf8");
-	// 	} catch (err) {
-	// 		throw err;
-	// 	}
-	// }
-	// async readNotes() {
-	// 	try {
-	// 		const data = await readFileAsync("db/db.json", "utf8");
-	// 		console.log("read", data);
-	// 		return JSON.parse(data);
-	// 	} catch (err) {
-	// 		throw err;
-	// 	}
-	// }
 
 	async writeNotes(notes) {
 		try {
@@ -50,12 +33,11 @@ class DbFunctions {
 	async addNote(note) {
 		try {
 			const notes = await this.getNotes();
-			console.log("addnotes", notes);
 			const { title, text } = note;
 			if (!title || !text) {
 				throw new Error("Missing required fields!");
 			}
-			const newNote = { title, text, id: this.id };
+			const newNote = { title, text, id: uuid4() };
 			notes.push(newNote);
 			this.writeNotes(notes);
 		} catch (err) {
@@ -64,18 +46,12 @@ class DbFunctions {
 	}
 
 	async deleteNote(id) {
-		console.log(id);
 		try {
 			const notes = await this.getNotes();
-			const newNotes = notes.filter((note, index) => {
-				console.log(id);
-				console.log(note.id !== parseInt(id));
-				return index !== parseInt(id);
-			});
-			console.log("delete", newNotes);
+			const newNotes = notes.filter((note) => note.id !== id);
 			await this.writeNotes(newNotes);
 			const updatedNotes = await this.getNotes();
-			return JSON.parse(updatedNotes);
+			return updatedNotes;
 		} catch (err) {
 			throw err;
 		}
